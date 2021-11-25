@@ -23,8 +23,6 @@ int	destroy_mutexes(pthread_mutex_t *mutexes, int size)
 	i = -1;
 	while (++i < size)
 	{
-		if (pthread_mutex_unlock(&mutexes[i]))
-			return (1);
 		if (pthread_mutex_destroy(&mutexes[i]))
 			return (1);
 	}

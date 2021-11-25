@@ -27,45 +27,25 @@ int	init_philos(t_philo **philos, int num)
 	return (0);
 }
 
-int	check_end_cond(t_args *args, t_philo *philo)
-{
-	long unsigned	curr_time;
-	long unsigned	death_time;
-	int				eat_cond;
-
-	get_time(&curr_time);
-	death_time = philo->last_eat_time + args->conds->tt_die;
-	eat_cond = args->conds->max_eat_num >= 0 && philo->eat_num >= args->conds->max_eat_num;
-	if (curr_time > death_time)
-	{
-		print_status("died", args->print_mutex, philo->num);
-		args->death = 1;
-	}
-	return (args->death || eat_cond);
-}
-
 void	*philo_cycle(void *vars)
 {
 	t_args			*args;
-	t_philo			philo;
+	t_philo			*philo;
 
 	args = (t_args *)vars;
-	philo = args->philos[args->philo_i];
-	while (args->conds->philo_num != (args->philo_i + 1))
+	philo = &args->philos[args->philo_i];
+	while (!args->start)
 		;
-	if (args->conds->philo_num == (args->philo_i + 1))
-		usleep(25);
-	print_status("is thinking", args->print_mutex, philo.num);
-	get_time(&philo.last_eat_time);
-	while (!check_end_cond(args, &philo))
+	print_status("is thinking", args->print_mutex, philo->num);
+	if (!(philo->num % 2))
+		usleep(500);
+	philo->last_eat_time = get_time();
+	while(!args->death && !(args->conds->max_eat_num >= 0 && philo->eat_num >= args->conds->max_eat_num))
 	{
-		take_fork_p(&args->fork_mutexes[philo.fork_1], args->print_mutex, &philo);
-		take_fork_p(&args->fork_mutexes[philo.fork_2], args->print_mutex, &philo);
-		eat_p(args, args->print_mutex, &philo);
-		pthread_mutex_unlock(&args->fork_mutexes[philo.fork_1]);
-		pthread_mutex_unlock(&args->fork_mutexes[philo.fork_2]);
-		sleep_p(args, args->print_mutex, &philo);
-		print_status("is thinking", args->print_mutex, philo.num);
+		eat_p(args, args->print_mutex, philo);
+		sleep_p(args, args->print_mutex, philo);
+		print_status("is thinking", args->print_mutex, philo->num);
+		usleep(100);
 	}
 	return (NULL);
 }

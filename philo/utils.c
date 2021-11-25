@@ -39,24 +39,19 @@ int	is_strdigit(char *str)
 	return (1);
 }
 
-void	get_time(unsigned long *time)
+unsigned long	get_time(void)
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	*time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000) ;
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
 void	milisleep(unsigned long duration)
 {
 	unsigned long	init_time;
-	unsigned long	curr_time;
 
-	get_time(&init_time);
-	get_time(&curr_time);
-	while (curr_time - init_time < duration)
-	{
+	init_time = get_time();
+	while (get_time() - init_time < duration)
 		usleep(1);
-		get_time(&curr_time);
-	}
 }

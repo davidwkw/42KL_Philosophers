@@ -29,35 +29,30 @@ static int	init_cond(t_conditions *cond, int argc, char **argv)
 	return (0);
 }
 
-static void	init_args(t_args *args, t_conditions *conds, pthread_mutex_t *mutexes, pthread_mutex_t *p_mutex)
+static void	init_args(t_args *args, t_conditions *conds)
 {
 	args->conds = conds;
-	args->fork_mutexes = mutexes;
-	args->print_mutex = p_mutex;
+	args->start = 0;
 	args->death = 0;
 	args->full = 0;
 }
 
 static int	thread_handler(t_conditions *conds)
 {
-	pthread_t		*threads;
-	pthread_t		death_thread;
-	pthread_mutex_t	*mutexes;
-	pthread_mutex_t	*p_mutex;
 	t_args			args;
 
 	init_philos(&args.philos, conds->philo_num);
-	create_mutexes(&mutexes, conds->philo_num, NULL);
-	create_mutexes(&p_mutex, 1, NULL);
-	init_args(&args, conds, mutexes, p_mutex);
-	create_philo_threads(&threads, conds->philo_num, &philo_cycle, &args);
-	pthread_create(&death_thread, NULL, &death_monitor ,&args);
-	pthread_join(death_thread, NULL);
-	join_threads(threads, conds->philo_num);
-	destroy_mutexes(mutexes, conds->philo_num);
-	pthread_mutex_destroy(p_mutex);
-	free(mutexes);
-	free(threads);
+	create_mutexes(&args.fork_mutexes, conds->philo_num, NULL);
+	create_mutexes(&args.print_mutex, 1, NULL);
+	init_args(&args, conds);
+	pthread_create(&args.philo_parent_thread, NULL, &philo_parent_cycle, &args);
+	pthread_join(args.philo_parent_thread, NULL);
+	destroy_mutexes(args.fork_mutexes, conds->philo_num);
+	destroy_mutexes(args.print_mutex, 1);
+	free(args.fork_mutexes);
+	free(args.print_mutex);
+	free(args.threads);
+	free(args.philos);
 	return (0);
 }
 

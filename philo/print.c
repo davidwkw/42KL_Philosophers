@@ -10,10 +10,7 @@ int	print_usage(void)
 
 void	print_status(char *msg, pthread_mutex_t *p_mutex, int philo)
 {
-	unsigned long	curr_time;
-
 	pthread_mutex_lock(p_mutex);
-	get_time(&curr_time);
-	printf("%lu %d %s\n", curr_time, philo, msg);
+	printf("%lu %d %s\n", get_time(), philo, msg);
 	pthread_mutex_unlock(p_mutex);
 }

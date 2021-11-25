@@ -7,7 +7,7 @@ SRCS	=	main.c \
 			print.c \
 			threads.c \
 			utils.c \
-			death.c	\
+			parent.c	\
 
 OBJS	=	$(SRCS:.c=.o)
 
