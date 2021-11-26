@@ -1,12 +1,17 @@
 #include "philo.h"
 
+int	create_threads(pthread_t **threads, int num)
+{
+	*threads = malloc(sizeof(pthread_t) * (num + 1));
+	if (!(*threads))
+		return (1);
+	return (0);
+}
+
 int	create_philo_threads(pthread_t **threads, int num, void *(*f)(void *), t_args *args)
 {
 	int	i;
 
-	*threads = malloc(sizeof(pthread_t) * (num + 1));
-	if (!(*threads))
-		return (1);
 	i = -1;
 	while (++i < num)
 	{

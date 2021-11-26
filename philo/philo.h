@@ -26,7 +26,7 @@ typedef struct s_philo
 
 typedef struct s_args
 {
-	t_conditions	*conds;
+	t_conditions	conds;
 	t_philo			*philos;
 	int				philo_i;
 	pthread_mutex_t	*fork_mutexes;
@@ -41,18 +41,20 @@ typedef struct s_args
 void			*philo_cycle(void *vars);
 void			*philo_parent_cycle(void *vars);
 
+int				create_threads(pthread_t **threads, int num);
 int				create_philo_threads(pthread_t **threads, int num, void *(*f)(void *), t_args *args);
 int				join_threads(pthread_t *threads, int size);
-int				destroy_mutexes(pthread_mutex_t *mutexes, int size);
-int				create_mutexes(pthread_mutex_t **mutexes, int num, const pthread_mutexattr_t *attr);
+
+int				create_mutexes(pthread_mutex_t **mutexes, int num);
+int				init_arg_mutexes(t_args *args);
+int				destroy_arg_mutexes(t_args *args);
 
 int				init_philos(t_philo **philos, int num);
 
 void			eat_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo);
-void			take_fork_p(pthread_mutex_t *fork, pthread_mutex_t *p_mutex, t_philo *philo);
 void			sleep_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo);
 
-void			print_status(char *msg, pthread_mutex_t *p_mutex, int philo);
+void			print_status(char *msg, pthread_mutex_t *p_mutex, int philo, t_args *args);
 int				print_usage(void);
 
 unsigned long	get_time(void);

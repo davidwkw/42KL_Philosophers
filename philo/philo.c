@@ -36,15 +36,15 @@ void	*philo_cycle(void *vars)
 	philo = &args->philos[args->philo_i];
 	while (!args->start)
 		;
-	print_status("is thinking", args->print_mutex, philo->num);
+	print_status("is thinking", args->print_mutex, philo->num, args);
 	if (!(philo->num % 2))
 		usleep(500);
 	philo->last_eat_time = get_time();
-	while(!args->death && !(args->conds->max_eat_num >= 0 && philo->eat_num >= args->conds->max_eat_num))
+	while(!args->death && !(args->conds.max_eat_num >= 0 && philo->eat_num >= args->conds.max_eat_num))
 	{
 		eat_p(args, args->print_mutex, philo);
 		sleep_p(args, args->print_mutex, philo);
-		print_status("is thinking", args->print_mutex, philo->num);
+		print_status("is thinking", args->print_mutex, philo->num, args);
 		usleep(100);
 	}
 	return (NULL);

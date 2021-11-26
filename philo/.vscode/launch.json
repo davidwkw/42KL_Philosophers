@@ -15,7 +15,7 @@
 				"200",
 				"100"
 			],
-			"stopAtEntry": false,
+			"stopAtEntry": true,
 			"cwd": "${fileDirname}",
 			"environment": [],
 			"externalConsole": false,
