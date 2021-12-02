@@ -28,7 +28,7 @@ static int	destroy_mutexes(pthread_mutex_t *mutexes, int size)
 	i = -1;
 	while (++i < size)
 	{
-		if (pthread_mutex_unlock(&mutexes[i]) || pthread_mutex_destroy(&mutexes[i]))
+		if (pthread_mutex_destroy(&mutexes[i]))
 			return (1);
 	}
 	return (0);
@@ -62,6 +62,7 @@ int	destroy_arg_mutexes(t_args *args)
 		printf("Fork mutexes failed to be destroyed\n");
 		ret++;
 	}
+	pthread_mutex_unlock(args->print_mutex);
 	if (destroy_mutexes(args->print_mutex, 1))
 	{
 		printf("Print mutex failed to be destroyed\n");

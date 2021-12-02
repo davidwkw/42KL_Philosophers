@@ -13,13 +13,11 @@ static int	check_death(t_args *args, t_philo *philo, unsigned long curr_time)
 	return (0);
 }
 
-void	*philo_parent_cycle(void *vars)
+void	end_monitor(t_args *args)
 {
-	t_args			*args;
 	int				i;
 	unsigned long	curr_time;
 
-	args = (t_args *)vars;
 	create_philo_threads(&args->threads, args->conds.philo_num, &philo_cycle, args);
 	args->start = 1;
 	usleep(args->conds.tt_die * 1000);
@@ -38,5 +36,5 @@ void	*philo_parent_cycle(void *vars)
 			}
 		}
 	}
-	return (NULL);
+	join_threads(args->threads, args->conds.philo_num);
 }

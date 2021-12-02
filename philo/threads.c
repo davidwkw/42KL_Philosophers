@@ -15,10 +15,8 @@ int	create_philo_threads(pthread_t **threads, int num, void *(*f)(void *), t_arg
 	i = -1;
 	while (++i < num)
 	{
-		args->philo_i = i;
-		if (pthread_create(&((*threads)[i]), NULL, f, (void *)args))
+		if (pthread_create(&((*threads)[i]), NULL, f, (void *)(&args->philos[i])))
 			return (1);
-		usleep(100);
 	}
 	return (0);
 }

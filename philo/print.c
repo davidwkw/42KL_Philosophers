@@ -8,11 +8,12 @@ int	print_usage(void)
 	return (1);
 }
 
-void	print_status(char *msg, pthread_mutex_t *p_mutex, int philo, t_args *args)
+int	print_status(char *msg, pthread_mutex_t *p_mutex, int philo, t_args *args)
 {
-	while (args->death || args->full >= args->conds.philo_num)
-		usleep(10000000);
+	if (args->death || args->full >= args->conds.philo_num)
+		return (1);
 	pthread_mutex_lock(p_mutex);
 	printf("%lu %d %s\n", get_time(), philo, msg);
 	pthread_mutex_unlock(p_mutex);
+	return (0);
 }

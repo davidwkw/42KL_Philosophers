@@ -22,6 +22,7 @@ typedef struct s_philo
 	int				fork_2;
 	unsigned long	last_eat_time;
 	int				eat_num;
+	void			*args;
 }	t_philo;
 
 typedef struct s_args
@@ -39,7 +40,7 @@ typedef struct s_args
 }	t_args;
 
 void			*philo_cycle(void *vars);
-void			*philo_parent_cycle(void *vars);
+void			end_monitor(t_args *args);
 
 int				create_threads(pthread_t **threads, int num);
 int				create_philo_threads(pthread_t **threads, int num, void *(*f)(void *), t_args *args);
@@ -49,12 +50,12 @@ int				create_mutexes(pthread_mutex_t **mutexes, int num);
 int				init_arg_mutexes(t_args *args);
 int				destroy_arg_mutexes(t_args *args);
 
-int				init_philos(t_philo **philos, int num);
+int				init_philos(t_philo **philos, int num, void *args);
 
 void			eat_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo);
 void			sleep_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo);
 
-void			print_status(char *msg, pthread_mutex_t *p_mutex, int philo, t_args *args);
+int				print_status(char *msg, pthread_mutex_t *p_mutex, int philo, t_args *args);
 int				print_usage(void);
 
 unsigned long	get_time(void);

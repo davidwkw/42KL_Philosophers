@@ -7,14 +7,13 @@ SRCS	=	main.c \
 			print.c \
 			threads.c \
 			utils.c \
-			parent.c	\
+			monitor.c	\
 
 OBJS	=	$(SRCS:.c=.o)
 
 CC		=	gcc
 
-# CFLAGS	=	-Wall -Wextra -Werror -g -I. -pthread
-CFLAGS	=	-g -I. -pthread
+CFLAGS	=	-Wall -Wextra -Werror -g -I. -pthread
 
 all 	:	$(NAME)
 

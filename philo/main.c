@@ -32,10 +32,7 @@ static int	init_cond(t_conditions *cond, int argc, char **argv)
 static int	thread_handler(t_args *args)
 {
 	if (!init_arg_mutexes(args))
-	{
-		pthread_create(&args->philo_parent_thread, NULL, &philo_parent_cycle, args);
-		pthread_join(args->philo_parent_thread, NULL);
-	}
+		end_monitor(args);
 	destroy_arg_mutexes(args);
 	return (0);
 }
@@ -45,7 +42,7 @@ static int	init_args(t_args *args)
 	int	ret;
 
 	ret = 0;
-	ret += init_philos(&args->philos, args->conds.philo_num);
+	ret += init_philos(&args->philos, args->conds.philo_num, (void *)args);
 	ret += create_mutexes(&args->fork_mutexes, args->conds.philo_num);
 	ret += create_mutexes(&args->print_mutex, 1);
 	ret += create_threads(&args->threads, args->conds.philo_num);

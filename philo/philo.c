@@ -1,6 +1,6 @@
 #include "philo.h"
 
-int	init_philos(t_philo **philos, int num)
+int	init_philos(t_philo **philos, int num, void *args)
 {
 	int		i;
 
@@ -23,6 +23,7 @@ int	init_philos(t_philo **philos, int num)
 		}
 		(*philos)[i].last_eat_time = 0;
 		(*philos)[i].eat_num = 0;
+		(*philos)[i].args = args;
 	}
 	return (0);
 }
@@ -32,8 +33,8 @@ void	*philo_cycle(void *vars)
 	t_args			*args;
 	t_philo			*philo;
 
-	args = (t_args *)vars;
-	philo = &args->philos[args->philo_i];
+	philo = (t_philo *)vars;
+	args = (t_args *)philo->args;
 	while (!args->start)
 		;
 	print_status("is thinking", args->print_mutex, philo->num, args);
