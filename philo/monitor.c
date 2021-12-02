@@ -30,7 +30,6 @@ void	end_monitor(t_args *args)
 	int				i;
 	unsigned long	curr_time;
 
-	create_philo_threads(&args->threads, args->conds.philo_num, &philo_cycle, args);
 	args->start = 1;
 	usleep(args->conds.tt_die * 1000);
 	while (!args->death && args->full < args->conds.philo_num)
@@ -48,5 +47,4 @@ void	end_monitor(t_args *args)
 			}
 		}
 	}
-	join_threads(args->threads, args->conds.philo_num);
 }

@@ -44,7 +44,11 @@ static int	init_cond(t_conditions *cond, int argc, char **argv)
 static int	thread_handler(t_args *args)
 {
 	if (!init_arg_mutexes(args))
+	{
+		create_philo_threads(&args->threads, args->conds.philo_num, &philo_cycle, args);
 		end_monitor(args);
+		join_threads(args->threads, args->conds.philo_num);
+	}
 	destroy_arg_mutexes(args);
 	return (0);
 }
