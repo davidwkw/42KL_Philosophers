@@ -54,6 +54,12 @@ void	*philo_cycle(void *vars)
 	if (!(philo->num % 2))
 		usleep(500);
 	philo->last_eat_time = get_time();
+	if (args->conds.philo_num == 1)
+	{
+		print_status("has taken a fork", args->print_mutex, philo->num, args);
+		usleep(args->conds.tt_die * 1000);
+		return (NULL);
+	}
 	while (!args->death && !philo->full)
 	{
 		eat_p(args, args->print_mutex, philo);

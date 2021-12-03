@@ -43,16 +43,9 @@ static int	init_cond(t_conditions *cond, int argc, char **argv)
 
 static int	thread_handler(t_args *args)
 {
-	pthread_t	death_monitor;
-
-	if (!init_arg_mutexes(args))
-	{
-		create_philo_threads(&args->threads, args->conds.philo_num, &philo_cycle, args);
-		pthread_create(&death_monitor, NULL, &death_cycle, (void *)args);
-		pthread_detach(death_monitor);
-		join_threads(args->threads, args->conds.philo_num);
-	}
-	destroy_arg_mutexes(args);
+	create_philo_threads(&args->threads, args->conds.philo_num, &philo_cycle, args);
+	death_monitor(args);
+	join_threads(args->threads, args->conds.philo_num);
 	return (0);
 }
 
@@ -65,6 +58,7 @@ static int	init_args(t_args *args)
 	ret += create_mutexes(&args->fork_mutexes, args->conds.philo_num);
 	ret += create_mutexes(&args->print_mutex, 1);
 	ret += create_threads(&args->threads, args->conds.philo_num);
+	ret += init_arg_mutexes(args);
 	return (ret);
 }
 
@@ -82,6 +76,7 @@ int	main(int argc, char **argv)
 	}
 	if (!(init_args(&args)))
 		thread_handler(&args);
+	destroy_arg_mutexes(&args);
 	free(args.threads);
 	free(args.philos);
 	free(args.fork_mutexes);

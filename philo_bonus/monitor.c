@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static int	check_death(t_args *args, t_philo *philo, unsigned long curr_time)
 {
@@ -18,32 +18,33 @@ static int	check_death(t_args *args, t_philo *philo, unsigned long curr_time)
 
 	death_time = philo->last_eat_time + args->conds.tt_die;
 	if (curr_time >= death_time)
+	{
 		args->death = 1;
-	return (args->death);
+		return (1);
+	}
+	return (0);
 }
 
-void	*death_cycle(void *vars)
+void	*end_cycle(void *vars)
 {
-	int				i;
 	unsigned long	curr_time;
+	t_philo			*philo;
 	t_args			*args;
 
-	args = (t_args *)vars;
-	args->start = 1;
+	philo = (t_philo *)vars;
+	args = philo->args;
+	while (!args->start)
+		;
 	usleep(args->conds.tt_die * 1000);
-	while (!args->death && (args->all_full < args->conds.max_eat_num))
+	while (!args->death && args->full < args->conds.philo_num)
 	{
-		i = -1;
-		while (++i < args->conds.philo_num)
+		curr_time = get_time();
+		if (check_death(args, philo, curr_time))
 		{
-			curr_time = get_time();
-			if ((args->all_full < args->conds.max_eat_num) && check_death(args, &args->philos[i], curr_time))
-			{
-				pthread_mutex_lock(args->print_mutex);
-				printf("%lu %d %s\n", curr_time, i + 1, "died");
-				pthread_mutex_unlock(args->print_mutex);
-				break;
-			}
+			sem_wait(args->print_sem);
+			if (args->death)
+				printf("%lu %d %s\n", curr_time, philo->num, "died");
+			sem_post(args->end_sem);
 		}
 	}
 	return (NULL);
