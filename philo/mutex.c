@@ -74,7 +74,6 @@ int	destroy_arg_mutexes(t_args *args)
 		printf("Fork mutexes failed to be destroyed\n");
 		ret++;
 	}
-	pthread_mutex_unlock(args->print_mutex);
 	if (destroy_mutexes(args->print_mutex, 1))
 	{
 		printf("Print mutex failed to be destroyed\n");

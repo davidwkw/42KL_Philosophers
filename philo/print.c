@@ -22,7 +22,7 @@ int	print_usage(void)
 
 int	print_status(char *msg, pthread_mutex_t *p_mutex, int philo, t_args *args)
 {
-	if (args->death || args->full >= args->conds.philo_num)
+	if (args->death)
 		return (1);
 	pthread_mutex_lock(p_mutex);
 	printf("%lu %d %s\n", get_time(), philo, msg);

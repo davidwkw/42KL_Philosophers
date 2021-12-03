@@ -35,6 +35,7 @@ typedef struct s_philo
 	unsigned long	last_eat_time;
 	int				eat_num;
 	void			*args;
+	int				full;
 }	t_philo;
 
 typedef struct s_args
@@ -47,12 +48,12 @@ typedef struct s_args
 	pthread_t		philo_parent_thread;
 	pthread_t		*threads;
 	unsigned int	start : 1;
+	int				all_full;
 	int				death;
-	int				full;
 }	t_args;
 
 void			*philo_cycle(void *vars);
-void			end_monitor(t_args *args);
+void			*death_cycle(void *args);
 
 int				create_threads(pthread_t **threads, int num);
 int				create_philo_threads(pthread_t **threads, int num, void *(*f)(void *), t_args *args);

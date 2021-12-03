@@ -28,7 +28,10 @@ void	eat_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo)
 		if (args->conds.max_eat_num >= 0)
 			philo->eat_num++;
 		if (args->conds.max_eat_num >= 0 && philo->eat_num == args->conds.max_eat_num)
-			args->full++;
+		{
+			philo->full = 1;
+			args->all_full++;
+		}
 		milisleep(args->conds.tt_eat);
 	}
 	pthread_mutex_unlock(&args->fork_mutexes[philo->fork_1]);

@@ -43,10 +43,13 @@ static int	init_cond(t_conditions *cond, int argc, char **argv)
 
 static int	thread_handler(t_args *args)
 {
+	pthread_t	death_monitor;
+
 	if (!init_arg_mutexes(args))
 	{
 		create_philo_threads(&args->threads, args->conds.philo_num, &philo_cycle, args);
-		end_monitor(args);
+		pthread_create(&death_monitor, NULL, &death_cycle, (void *)args);
+		pthread_detach(death_monitor);
 		join_threads(args->threads, args->conds.philo_num);
 	}
 	destroy_arg_mutexes(args);

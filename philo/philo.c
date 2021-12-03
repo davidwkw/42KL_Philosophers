@@ -36,6 +36,7 @@ int	init_philos(t_philo **philos, int num, void *args)
 		(*philos)[i].last_eat_time = 0;
 		(*philos)[i].eat_num = 0;
 		(*philos)[i].args = args;
+		(*philos)[i].full = 0;
 	}
 	return (0);
 }
@@ -53,7 +54,7 @@ void	*philo_cycle(void *vars)
 	if (!(philo->num % 2))
 		usleep(500);
 	philo->last_eat_time = get_time();
-	while(!args->death && !(args->conds.max_eat_num >= 0 && philo->eat_num >= args->conds.max_eat_num))
+	while (!args->death && !philo->full)
 	{
 		eat_p(args, args->print_mutex, philo);
 		sleep_p(args, args->print_mutex, philo);
