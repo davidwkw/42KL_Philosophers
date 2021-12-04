@@ -57,8 +57,7 @@ void	*philo_cycle(void *vars)
 	if (args->conds.philo_num == 1)
 	{
 		print_status("has taken a fork", args->print_mutex, philo->num, args);
-		usleep(args->conds.tt_die * 1000);
-		print_status("died", args->print_mutex, philo->num, args);
+		milisleep(args->conds.tt_die + 1);
 		return (NULL);
 	}
 	while (!args->death && !philo->full)

@@ -42,7 +42,8 @@ void	*death_cycle(void *vars)
 			if (!(max_eat > 0 && args->all_full >= args->conds.philo_num) && check_death(args, &args->philos[i], curr_time))
 			{
 				pthread_mutex_lock(args->print_mutex);
-				printf("%lu %d %s\n", curr_time, i + 1, "died");
+				if (args->death)
+					printf("%lu %d %s\n", curr_time, i + 1, "died");
 				pthread_mutex_unlock(args->print_mutex);
 				break;
 			}

@@ -65,5 +65,5 @@ void	milisleep(unsigned long duration)
 
 	init_time = get_time();
 	while (get_time() - init_time < duration)
-		usleep(1);
+		usleep(10);
 }
