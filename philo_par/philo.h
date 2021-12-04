@@ -68,7 +68,7 @@ int				init_philos(t_philo **philos, int num, void *args);
 void			eat_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo);
 void			sleep_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo);
 
-int				print_status(char *msg, pthread_mutex_t *p_mutex, int philo, t_args *args);
+void			print_status(char *msg, pthread_mutex_t *p_mutex, int philo, t_args *args);
 int				print_usage(void);
 
 unsigned long	get_time(void);
