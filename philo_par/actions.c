@@ -27,7 +27,7 @@ void	eat_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo)
 		philo->last_eat_time = get_time();
 		if (args->conds.max_eat_num >= 0)
 			philo->eat_num++;
-		if (args->conds.max_eat_num >= 0 && philo->eat_num == args->conds.max_eat_num)
+		if (args->conds.max_eat_num >= 0 && philo->eat_num >= args->conds.max_eat_num)
 		{
 			philo->full = 1;
 			args->all_full++;
