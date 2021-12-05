@@ -13,7 +13,7 @@ OBJS	=	$(SRCS:.c=.o)
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror -g -I. -pthread
+CFLAGS	=	-Wall -Wextra -Werror -I. -pthread
 
 all 	:	$(NAME)
 
