@@ -21,11 +21,11 @@
 
 typedef struct s_conditions
 {
-	int	philo_num;
+	int				philo_num;
 	long unsigned	tt_die;
-	int	tt_eat;
-	int	tt_sleep;
-	int	max_eat_num;
+	int				tt_eat;
+	int				tt_sleep;
+	int				max_eat_num;
 }	t_conditions;
 
 typedef struct s_philo
@@ -57,7 +57,8 @@ void			*philo_cycle(void *vars);
 void			*death_cycle(void *vars);
 
 int				create_threads(pthread_t **threads, int num);
-int				create_philo_threads(pthread_t **threads, int num, void *(*f)(void *), t_args *args);
+int				create_philo_threads(pthread_t **threads, int num,
+					void *(*f)(void *), t_args *args);
 int				join_threads(pthread_t *threads, int size);
 
 int				create_mutexes(pthread_mutex_t **mutexes, int num);
@@ -69,7 +70,8 @@ int				init_philos(t_philo **philos, int num, void *args);
 void			eat_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo);
 void			sleep_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo);
 
-void			print_status(char *msg, pthread_mutex_t *p_mutex, int philo, t_args *args);
+void			print_status(char *msg, pthread_mutex_t *p_mutex,
+					int philo, t_args *args);
 int				print_usage(void);
 
 unsigned long	get_time(void);

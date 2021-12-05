@@ -45,7 +45,8 @@ static int	thread_handler(t_args *args)
 {
 	pthread_t	death_monitor;
 
-	create_philo_threads(&args->threads, args->conds.philo_num, &philo_cycle, args);
+	create_philo_threads(&args->threads,
+		args->conds.philo_num, &philo_cycle, args);
 	pthread_create(&death_monitor, NULL, &death_cycle, (void *)args);
 	pthread_detach(death_monitor);
 	join_threads(args->threads, args->conds.philo_num);

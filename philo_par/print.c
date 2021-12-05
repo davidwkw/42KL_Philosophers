@@ -20,7 +20,8 @@ int	print_usage(void)
 	return (1);
 }
 
-void	print_status(char *msg, pthread_mutex_t *p_mutex, int philo, t_args *args)
+void	print_status(char *msg, pthread_mutex_t *p_mutex,
+			int philo, t_args *args)
 {
 	if (args->death)
 		return ;

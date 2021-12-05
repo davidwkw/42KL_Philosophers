@@ -20,14 +20,16 @@ int	create_threads(pthread_t **threads, int num)
 	return (0);
 }
 
-int	create_philo_threads(pthread_t **threads, int num, void *(*f)(void *), t_args *args)
+int	create_philo_threads(pthread_t **threads, int num,
+		void *(*f)(void *), t_args *args)
 {
 	int	i;
 
 	i = -1;
 	while (++i < num)
 	{
-		if (pthread_create(&((*threads)[i]), NULL, f, (void *)(&args->philos[i])))
+		if (pthread_create(&((*threads)[i]), NULL, f,
+				(void *)(&args->philos[i])))
 			return (1);
 	}
 	return (0);
