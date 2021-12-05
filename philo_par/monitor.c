@@ -32,13 +32,14 @@ void	*death_cycle(void *vars)
 	args->start = 1;
 	milisleep(args->conds.tt_die);
 	while (!args->death && !(args->conds.max_eat_num > 0
-		&& args->all_full >= args->conds.philo_num))
+			&& args->all_full >= args->conds.philo_num))
 	{
 		i = -1;
 		while (++i < args->conds.philo_num)
 		{
 			curr_time = get_time();
-			if (!(args->conds.max_eat_num > 0 && args->all_full >= args->conds.philo_num)
+			if (!(args->conds.max_eat_num > 0 
+				&& args->all_full >= args->conds.philo_num)
 				&& check_death(args, &args->philos[i], curr_time))
 			{
 				pthread_mutex_lock(args->print_mutex);
