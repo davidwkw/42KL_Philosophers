@@ -58,7 +58,7 @@ void			death_monitor(t_args *args);
 
 int				create_threads(pthread_t **threads, int num);
 int				create_philo_threads(pthread_t **threads, int num,
-								void *(*f)(void *), t_args *args);
+							void *(*f)(void *), t_args *args);
 int				join_threads(pthread_t *threads, int size);
 
 int				create_mutexes(pthread_mutex_t **mutexes, int num);
@@ -71,7 +71,7 @@ void			eat_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo);
 void			sleep_p(t_args *args, pthread_mutex_t *p_mutex, t_philo *philo);
 
 int				print_status(char *msg, pthread_mutex_t *p_mutex,
-						int philo, t_args *args);
+					int philo, t_args *args);
 int				print_usage(void);
 
 unsigned long	get_time(void);
