@@ -44,7 +44,7 @@ void	death_monitor(t_args *args)
 				pthread_mutex_lock(args->print_mutex);
 				printf("%lu %d %s\n", curr_time, i + 1, "died");
 				pthread_mutex_unlock(args->print_mutex);
-				break;
+				break ;
 			}
 		}
 	}
