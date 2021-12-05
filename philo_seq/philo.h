@@ -58,7 +58,7 @@ void			death_monitor(t_args *args);
 
 int				create_threads(pthread_t **threads, int num);
 int				create_philo_threads(pthread_t **threads, int num,
-						void *(*f)(void *), t_args *args);
+					void *(*f)(void *), t_args *args);
 int				join_threads(pthread_t *threads, int size);
 
 int				create_mutexes(pthread_mutex_t **mutexes, int num);
