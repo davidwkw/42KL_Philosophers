@@ -44,7 +44,7 @@ static int	init_cond(t_conditions *cond, int argc, char **argv)
 static int	thread_handler(t_args *args)
 {
 	create_philo_threads(&args->threads, args->conds.philo_num,
-						&philo_cycle, args);
+					&philo_cycle, args);
 	death_monitor(args);
 	join_threads(args->threads, args->conds.philo_num);
 	return (0);

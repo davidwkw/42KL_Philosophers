@@ -29,7 +29,7 @@ int	create_philo_threads(pthread_t **threads, int num,
 	while (++i < num)
 	{
 		if (pthread_create(&((*threads)[i]), NULL, f,
-					(void *)(&args->philos[i])))
+				(void *)(&args->philos[i])))
 			return (1);
 	}
 	return (0);
