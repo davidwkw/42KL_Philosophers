@@ -6,7 +6,7 @@
 /*   By: kwang <kwang@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 15:05:56 by kwang             #+#    #+#             */
-/*   Updated: 2021/12/02 15:05:57 by kwang            ###   ########.fr       */
+/*   Updated: 2021/12/05 10:33:10 by kwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ int	print_usage(void)
 	return (1);
 }
 
-int	print_status(char *msg, int philo, t_args *args)
+void	print_status(char *msg, t_philo *philo, t_args *args)
 {
-	if (args->death || args->full >= args->conds.philo_num)
-		return (1);
+	if (philo->dead)
+		return ;
 	sem_wait(args->print_sem);
-	printf("%lu %d %s\n", get_time(), philo, msg);
+	printf("%lu %d %s\n", get_time(), philo->num, msg);
 	sem_post(args->print_sem);
-	return (0);
 }

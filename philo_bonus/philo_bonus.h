@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kwang <kwang@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/05 10:32:58 by kwang             #+#    #+#             */
+/*   Updated: 2021/12/05 10:33:04 by kwang            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_BONUS_qH
 
 # include <semaphore.h>
@@ -9,11 +21,12 @@
 # include <sys/time.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 
 # define FORK_SEM "/fork_sem"
 # define PRINT_SEM "/print_sem"
-# define START_SEM "print_sem"
+# define START_SEM "/start_sem"
 # define END_SEM "/end_sem"
 
 typedef struct s_conditions
@@ -30,7 +43,9 @@ typedef struct s_philo
 	int				num;
 	unsigned long	last_eat_time;
 	int				eat_num;
+	int				full;
 	void			*args;
+	int				dead;
 }	t_philo;
 
 typedef struct s_args
@@ -38,8 +53,6 @@ typedef struct s_args
 	t_conditions	conds;
 	t_philo			*philos;
 	pid_t			*child_pids;
-	int				full;
-	int				death;
 	int				start;
 	sem_t			*print_sem;
 	sem_t			*fork_sem;
@@ -51,7 +64,8 @@ void			*philo_cycle(void *vars);
 void			unlink_semaphores(void);
 void			close_semaphores(t_args *args);
 
-void			*end_cycle(void *vars);
+void			*death_cycle(void *vars);
+// void			philo_handler(t_philo *philo);
 void			philo_handler(t_philo *philo, t_args *args);
 void			philo_process(t_philo *philo, t_args *args);
 
@@ -60,7 +74,7 @@ int				init_philos(t_philo **philos, int num, void *args);
 void			eat_p(t_args *args, t_philo *philo);
 void			sleep_p(t_args *args, t_philo *philo);
 
-int				print_status(char *msg, int philo, t_args *args);
+void			print_status(char *msg, t_philo *philo, t_args *args);
 int				print_usage(void);
 
 unsigned long	get_time(void);
