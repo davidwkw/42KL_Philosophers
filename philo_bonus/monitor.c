@@ -32,7 +32,7 @@ void	*death_cycle(void *vars)
 	args = philo->args;
 	while (!args->start)
 		;
-	usleep(args->conds.tt_die * 1000);
+	milisleep(args->conds.tt_die);
 	while (!args->death && !philo->full)
 	{
 		curr_time = get_time();
