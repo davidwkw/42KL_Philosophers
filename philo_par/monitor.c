@@ -38,8 +38,7 @@ void	*death_cycle(void *vars)
 		while (++i < args->conds.philo_num)
 		{
 			curr_time = get_time();
-			if (!(args->conds.max_eat_num > 0 
-				&& args->all_full >= args->conds.philo_num)
+			if (!(args->conds.max_eat_num > 0 && args->all_full >= args->conds.philo_num)
 				&& check_death(args, &args->philos[i], curr_time))
 			{
 				pthread_mutex_lock(args->print_mutex);
