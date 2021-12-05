@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_BONUS_qH
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 # include <semaphore.h>
 # include <fcntl.h>
@@ -59,7 +60,6 @@ typedef struct s_args
 	sem_t			*start_sem;
 	sem_t			*end_sem;
 }	t_args;
-
 
 void			*philo_cycle(void *vars);
 void			init_sems(t_args *args);

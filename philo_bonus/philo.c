@@ -61,7 +61,7 @@ void	philo_process(t_philo *philo)
 		milisleep(args->conds.tt_die + 1);
 		return ;
 	}
-	while(!args->death && !philo->full)
+	while (!args->death && !philo->full)
 	{
 		eat_p(args, philo);
 		sleep_p(args, philo);

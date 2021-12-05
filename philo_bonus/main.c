@@ -55,7 +55,7 @@ static int	init_args(t_args *args)
 
 void	process_handler(t_args *args)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < args->conds.philo_num)

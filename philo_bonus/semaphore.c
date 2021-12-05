@@ -30,9 +30,12 @@ void	close_semaphores(t_args *args)
 
 void	init_sems(t_args *args)
 {
+	int	num;
+
+	num = args->conds.philo_num;
 	unlink_semaphores();
-	args->fork_sem = sem_open(FORK_SEM, O_CREAT, S_IRUSR | S_IWUSR, args->conds.philo_num);
-	args->print_sem = sem_open(PRINT_SEM, O_CREAT, S_IRUSR | S_IWUSR, 1);	
+	args->fork_sem = sem_open(FORK_SEM, O_CREAT, S_IRUSR | S_IWUSR, num);
+	args->print_sem = sem_open(PRINT_SEM, O_CREAT, S_IRUSR | S_IWUSR, 1);
 	args->start_sem = sem_open(START_SEM, O_CREAT, S_IRUSR | S_IWUSR, 0);
 	args->end_sem = sem_open(END_SEM, O_CREAT, S_IRUSR | S_IWUSR, 0);
 }
