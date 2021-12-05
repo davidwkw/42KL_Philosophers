@@ -20,14 +20,14 @@ int	create_mutexes(pthread_mutex_t **mutexes, int num)
 	return (0);
 }
 
-static int	init_mutexes(pthread_mutex_t **mutexes, int num, const pthread_mutexattr_t *attr)
+static int	init_mutexes(pthread_mutex_t **mutexes, int num)
 {
 	int	i;
 
 	i = -1;
 	while (++i < num)
 	{
-		if (pthread_mutex_init(&((*mutexes)[i]), attr))
+		if (pthread_mutex_init(&((*mutexes)[i]), NULL))
 			return (1);
 	}
 	return (0);
@@ -51,12 +51,12 @@ int	init_arg_mutexes(t_args *args)
 	int	ret;
 
 	ret = 0;
-	if (init_mutexes(&args->fork_mutexes, args->conds.philo_num, NULL))
+	if (init_mutexes(&args->fork_mutexes, args->conds.philo_num))
 	{
 		printf("Fork mutexes failed to be initialized\n");
 		ret++;
 	}
-	if (init_mutexes(&args->print_mutex, 1, NULL))
+	if (init_mutexes(&args->print_mutex, 1))
 	{
 		printf("Print mutex failed to be initialized\n");
 		ret++;
