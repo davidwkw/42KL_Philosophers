@@ -18,8 +18,8 @@ static int	check_death(t_args *args, t_philo *philo, unsigned long curr_time)
 
 	death_time = philo->last_eat_time + args->conds.tt_die;
 	if (curr_time >= death_time)
-		philo->dead = 1;
-	return (philo->dead);
+		args->death = 1;
+	return (args->death);
 }
 
 void	*death_cycle(void *vars)
@@ -33,14 +33,26 @@ void	*death_cycle(void *vars)
 	while (!args->start)
 		;
 	usleep(args->conds.tt_die * 1000);
-	while (!philo->dead && !philo->full)
+	while (!args->death && !philo->full)
 	{
 		curr_time = get_time();
 		if (check_death(args, philo, curr_time))
 		{
 			sem_wait(args->print_sem);
 			printf("%lu %d %s\n", curr_time, philo->num, "died");
+			sem_post(args->end_sem);
 		}
 	}
+	return (NULL);
+}
+
+void	*end_cycle(void *vars)
+{
+	t_args	*args;
+
+	args = (t_args *)vars;
+	sem_wait(args->end_sem);
+	args->death = 1;
+	sem_post(args->end_sem);
 	return (NULL);
 }

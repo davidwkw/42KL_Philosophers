@@ -41,16 +41,6 @@ static int	init_cond(t_conditions *cond, int argc, char **argv)
 	return (0);
 }
 
-#include <errno.h>
-static void	init_sems(t_args *args)
-{
-	unlink_semaphores();
-	args->fork_sem = sem_open(FORK_SEM, O_CREAT, S_IRUSR | S_IWUSR, args->conds.philo_num);
-	args->print_sem = sem_open(PRINT_SEM, O_CREAT, S_IRUSR | S_IWUSR, 1);	
-	args->start_sem = sem_open(START_SEM, O_CREAT, S_IRUSR | S_IWUSR, 0);
-	args->end_sem = sem_open(END_SEM, O_CREAT, S_IRUSR | S_IWUSR, 0);
-}
-
 static int	init_args(t_args *args)
 {
 	int	ret;
@@ -68,12 +58,11 @@ void	process_handler(t_args *args)
 	int i;
 
 	i = -1;
-	printf("parent proc start sem add %p\n", args->start_sem);
 	while (++i < args->conds.philo_num)
 	{
 		args->child_pids[i] = fork();
 		if (!args->child_pids[i])
-			philo_handler(&args->philos[i], args);
+			philo_handler(&args->philos[i]);
 	}
 	i = -1;
 	while (++i < args->conds.philo_num)
@@ -81,7 +70,6 @@ void	process_handler(t_args *args)
 	i = -1;
 	while (++i < args->conds.philo_num)
 		waitpid(args->child_pids[i], NULL, 0);
-	printf("am I actually waiting?...\n");
 }
 
 int	main(int argc, char **argv)

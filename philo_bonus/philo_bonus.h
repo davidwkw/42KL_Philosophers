@@ -45,12 +45,12 @@ typedef struct s_philo
 	int				eat_num;
 	int				full;
 	void			*args;
-	int				dead;
 }	t_philo;
 
 typedef struct s_args
 {
 	t_conditions	conds;
+	int				death;
 	t_philo			*philos;
 	pid_t			*child_pids;
 	int				start;
@@ -60,16 +60,18 @@ typedef struct s_args
 	sem_t			*end_sem;
 }	t_args;
 
+
 void			*philo_cycle(void *vars);
+void			init_sems(t_args *args);
 void			unlink_semaphores(void);
 void			close_semaphores(t_args *args);
 
-void			*death_cycle(void *vars);
-// void			philo_handler(t_philo *philo);
-void			philo_handler(t_philo *philo, t_args *args);
-void			philo_process(t_philo *philo, t_args *args);
-
 int				init_philos(t_philo **philos, int num, void *args);
+void			philo_handler(t_philo *philo);
+void			philo_process(t_philo *philo);
+
+void			*death_cycle(void *vars);
+void			*end_cycle(void *vars);
 
 void			eat_p(t_args *args, t_philo *philo);
 void			sleep_p(t_args *args, t_philo *philo);

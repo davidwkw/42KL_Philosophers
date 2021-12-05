@@ -14,7 +14,7 @@
 
 static void	take_fork_p(t_philo *philo, t_args *args)
 {
-	if (philo->dead)
+	if (args->death)
 		return ;
 	sem_wait(args->fork_sem);
 	print_status("has taken a fork", philo, args);
@@ -22,7 +22,7 @@ static void	take_fork_p(t_philo *philo, t_args *args)
 
 void	eat_p(t_args *args, t_philo *philo)
 {
-	if (philo->dead)
+	if (args->death)
 		return ;
 	take_fork_p(philo, args);
 	take_fork_p(philo, args);
@@ -37,7 +37,7 @@ void	eat_p(t_args *args, t_philo *philo)
 
 void	sleep_p(t_args *args, t_philo *philo)
 {
-	if (philo->dead)
+	if (args->death)
 		return ;
 	print_status("is sleeping", philo, args);
 	milisleep(args->conds.tt_sleep);

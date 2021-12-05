@@ -31,26 +31,25 @@ int	init_philos(t_philo **philos, int num, void *args)
 	return (0);
 }
 
-void	philo_handler(t_philo *philo, t_args *args)
+void	philo_handler(t_philo *philo)
 {
 	pthread_t	end_monitor;
-	t_args		vars;
+	pthread_t	death_monitor;
 
-	vars = *(t_args *)philo->args;
-	printf("philo %p\n", vars.start_sem);
-	printf("args %p\n", args->start_sem);
-	pthread_create(&end_monitor, NULL, &death_cycle, (void *)philo);
+	pthread_create(&death_monitor, NULL, &death_cycle, (void *)philo);
+	pthread_create(&end_monitor, NULL, &end_cycle, philo->args);
+	pthread_detach(death_monitor);
 	pthread_detach(end_monitor);
-	philo_process(philo, args);
-	printf("exiting prematurely?\n");
+	philo_process(philo);
 	exit(0);
 }
 
-void	philo_process(t_philo *philo, t_args *args)
+void	philo_process(t_philo *philo)
 {
-	printf("child start sem add %p\n", args->start_sem);
+	t_args	*args;
+
+	args = philo->args;
 	sem_wait(args->start_sem);
-	printf("starting...\n");
 	args->start = 1;
 	print_status("is thinking", philo, args);
 	if (!(philo->num % 2))
@@ -62,7 +61,7 @@ void	philo_process(t_philo *philo, t_args *args)
 		milisleep(args->conds.tt_die + 1);
 		return ;
 	}
-	while(!philo->dead && !philo->full)
+	while(!args->death && !philo->full)
 	{
 		eat_p(args, philo);
 		sleep_p(args, philo);

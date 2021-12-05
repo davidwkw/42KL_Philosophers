@@ -22,7 +22,7 @@ int	print_usage(void)
 
 void	print_status(char *msg, t_philo *philo, t_args *args)
 {
-	if (philo->dead)
+	if (args->death)
 		return ;
 	sem_wait(args->print_sem);
 	printf("%lu %d %s\n", get_time(), philo->num, msg);
