@@ -6,7 +6,7 @@
 /*   By: kwang <kwang@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 15:05:44 by kwang             #+#    #+#             */
-/*   Updated: 2021/12/02 15:05:46 by kwang            ###   ########.fr       */
+/*   Updated: 2024/01/08 01:54:00 by kwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 	if (init_cond(&args.conds, argc, argv))
 	{
 		printf("Invalid input\n");
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	if (!(init_args(&args)))
 		thread_handler(&args);
@@ -82,5 +82,5 @@ int	main(int argc, char **argv)
 	free(args.philos);
 	free(args.fork_mutexes);
 	free(args.print_mutex);
-	return (0);
+	return (EXIT_SUCCESS);
 }

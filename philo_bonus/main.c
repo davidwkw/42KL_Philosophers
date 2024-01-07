@@ -6,7 +6,7 @@
 /*   By: kwang <kwang@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:32:46 by kwang             #+#    #+#             */
-/*   Updated: 2021/12/05 10:32:48 by kwang            ###   ########.fr       */
+/*   Updated: 2024/01/08 01:54:50 by kwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,5 @@ int	main(int argc, char **argv)
 	unlink_semaphores();
 	free(args.philos);
 	free(args.child_pids);
-	return (0);
+	return (EXIT_SUCCESS);
 }

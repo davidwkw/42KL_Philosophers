@@ -6,7 +6,7 @@
 /*   By: kwang <kwang@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 15:05:56 by kwang             #+#    #+#             */
-/*   Updated: 2021/12/05 10:33:10 by kwang            ###   ########.fr       */
+/*   Updated: 2024/01/08 01:56:02 by kwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	print_usage(void)
 	printf("Usage: ./philo [number_of_philosophers] ");
 	printf("[time_to_die] [time_to_eat] [time_to_sleep] ");
 	printf("Optional ([number_of_times_each_philosopher_must_eat])\n");
-	return (1);
+	exit(EXIT_FAILURE);
 }
 
 void	print_status(char *msg, t_philo *philo, t_args *args)
